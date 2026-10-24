@@ -32,6 +32,15 @@ pipeline {
             }
         }
 
+        stage('Check Kubernetes Access') {
+            steps {
+                bat 'where kubectl'
+                bat 'kubectl config current-context'
+                bat 'kubectl cluster-info'
+                bat 'kubectl get nodes'
+            }
+        }
+
         stage('Deploy to Kubernetes') {
             steps {
                 bat 'kubectl apply -f deployment.yaml'
