@@ -41,6 +41,13 @@ pipeline {
                 bat 'kubectl get nodes'
             }
         }
+        stage('Check Kubernetes Access') {
+    steps {
+        bat 'kubectl config current-context'
+        bat 'kubectl cluster-info'
+        bat 'kubectl get nodes'
+    }
+}
 
         stage('Deploy to Kubernetes') {
             steps {
