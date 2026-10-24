@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        KUBECONFIG = 'C:\\Users\\ASUS\\.kube\\config'
         LOCAL_IMAGE = 'onlineresumebuilder:v1'
         DOCKER_IMAGE = 'simpalchowdhary/onlineresumebuilder:v1'
     }
