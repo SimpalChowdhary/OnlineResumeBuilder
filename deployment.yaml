@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onlineresumebuilder-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: onlineresumebuilder
+  template:
+    metadata:
+      labels:
+        app: onlineresumebuilder
+    spec:
+      containers:
+        - name: onlineresumebuilder
+          image: simpalchowdhary/onlineresumebuilder:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

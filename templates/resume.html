@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ resume.full_name }} | Resume preview</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="preview-page">
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">R</span> Resume Studio</a>
+    <a class="text-link" href="{{ url_for('index') }}">← Edit details</a>
+  </header>
+
+  <main class="preview-shell">
+    <div class="preview-toolbar">
+      <div>
+        <p class="eyebrow">YOUR RESUME IS READY</p>
+        <h1>Take a look before you go.</h1>
+      </div>
+      <form method="post" action="{{ url_for('download') }}">
+        {% for field in resume %}
+        <input type="hidden" name="{{ field }}" value="{{ resume[field] }}">
+        {% endfor %}
+        <button class="button button-primary" type="submit"><span aria-hidden="true">↓</span> Download PDF</button>
+      </form>
+    </div>
+
+    <article class="resume-paper">
+      <header class="resume-header">
+        <h2>{{ resume.full_name }}</h2>
+        <p>{% if resume.email %}{{ resume.email }}{% endif %}{% if resume.email and resume.phone %}<span class="contact-divider">·</span>{% endif %}{% if resume.phone %}{{ resume.phone }}{% endif %}</p>
+      </header>
+      <div class="resume-content">
+        {% for field, label in [('summary', 'Professional summary'), ('experience', 'Work experience'), ('education', 'Education'), ('skills', 'Technical skills'), ('projects', 'Projects')] %}
+        <section class="resume-section">
+          <h3>{{ label }}</h3>
+          <p class="resume-text">{{ resume[field] if resume[field] else 'Not provided' }}</p>
+        </section>
+        {% endfor %}
+      </div>
+    </article>
+    <p class="preview-hint">Your resume details are not stored after this request.</p>
+  </main>
+</body>
+</html>
